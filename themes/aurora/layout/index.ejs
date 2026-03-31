@@ -25,16 +25,23 @@
     <div class="card-glow"></div>
     <div class="bento-avatar"><%= theme.author.avatar_emoji %></div>
     <h3 class="bento-author-name"><%= theme.author.name %></h3>
-    <p class="bento-author-handle">@MessiXiang</p>
+    <p class="bento-author-handle"><%= theme.author.handle || ('@' + theme.author.name) %></p>
   </a>
 
   <!-- Dynamic bento cards from config -->
   <% bentoCards.forEach(function(card, idx) { %>
-    <a href="<%- url_for(card.link) %>" class="bento-card bento-<%= card.size %>-card">
+    <%
+      var cardStyle = card.style || 'glass';
+      var cardClasses = 'bento-card bento-' + card.size + '-card bento-style-' + cardStyle;
+      var inlineStyle = card.color ? 'background:' + card.color + ';border:none;' : '';
+    %>
+    <a href="<%- url_for(card.link) %>" class="<%= cardClasses %>"<% if (inlineStyle) { %> style="<%= inlineStyle %>"<% } %>>
       <div class="card-glow"></div>
       <div class="bento-watermark-num"><%= String(idx + 1).padStart(2, '0') %></div>
       <div class="bento-card-label">
-        <span class="status-indicator <%= card.status %>"></span>
+        <% if (card.status && card.status !== 'none') { %>
+          <span class="status-indicator <%= card.status %>"></span>
+        <% } %>
         <span class="label-text"><%= card.label %></span>
       </div>
       <div class="bento-card-content">

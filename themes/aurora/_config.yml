@@ -17,6 +17,7 @@ subtitle: "探索无垠天空"
 # Author info
 author:
   name: Messerschmitt.X
+  handle: "@MessiXiang"
   avatar_emoji: "🧑‍🚀"
   bio: "Aviation enthusiast & niche flight hunter"
   github: https://github.com/MessiXiang
@@ -27,32 +28,46 @@ hero:
   subtitle: "发现飞行之美，记录冲上云霄的每一个机位与机型体验。"
 
 # Bento Grid Cards
+# Fields:
+#   title:    Card heading (required)
+#   subtitle: Card description text
+#   link:     URL path the card links to
+#   size:     Grid span — large (2×2) | wide (2×1) | tall (1×2) | square (1×1) | mini (1×1 compact)
+#   style:    Visual theme — glass (default) | gradient-pink | gradient-blue | gradient-purple | gradient-dark | solid
+#   icon:     Optional emoji displayed on card
+#   color:    Optional custom CSS background value, overrides style preset
+#   label:    Status label text
+#   status:   Status dot — done (green) | plan (orange) | new (blue) | none (hidden)
 bento:
   - title: "Niche Flights"
     subtitle: "跨越西伯利亚的安-24冰原起降，飞行日记。"
     link: /categories/Niche-Flights/Archived/
+    size: large
+    style: glass
     status: done
     label: "FLIGHT LOG / ARCHIVED"
-    size: large
     icon: "🛫"
   - title: "Wishlist"
     subtitle: "收集情报、整理航权，宝藏体验预定中..."
     link: /categories/Niche-Flights/Wishlist/
+    size: square
+    style: gradient-pink
     status: plan
     label: "WISH LIST"
-    size: square
   - title: "Aviation Spotting"
     subtitle: "全球跑道端旁的出片点、器材焦段推介与实战参数。"
     link: /categories/Spotting/Archived/
+    size: tall
+    style: glass
     status: done
     label: "SPOTTING"
-    size: tall
   - title: "Spotting Radar"
     subtitle: "利用卫星图测算光线与星地运行轨迹。"
     link: /categories/Spotting/Wishlist/
+    size: wide
+    style: gradient-purple
     status: plan
     label: "RADAR"
-    size: wide
 
 # Features
 features:
