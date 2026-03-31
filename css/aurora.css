@@ -386,7 +386,7 @@ img {
   grid-auto-flow: dense;
   gap: 20px;
   max-width: var(--content-width);
-  margin: 0 auto 80px;
+  margin: 40px auto 80px;
   padding: 0 24px;
 }
 
