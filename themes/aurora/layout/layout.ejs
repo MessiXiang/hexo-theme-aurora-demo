@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title><% if (page.title) { %><%= page.title %> | <% } %><%= config.title %></title>
+  <meta name="description" content="<%= page.description || page.excerpt || config.description || '' %>">
+  <meta name="keywords" content="<%= (page.tags && page.tags.length ? page.tags.map(t => t.name).join(',') : '') || (config.keywords || '') %>">
+  <meta name="author" content="<%= config.author %>">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="<%= is_post() ? 'article' : 'website' %>">
+  <meta property="og:title" content="<%= page.title || config.title %>">
+  <meta property="og:description" content="<%= page.description || config.description || '' %>">
+  <meta property="og:url" content="<%= url %>">
+  <meta property="og:site_name" content="<%= config.title %>">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+
+  <%- css('css/aurora') %>
+</head>
+
+<body>
+  <!-- Reading Progress Bar -->
+  <% if (theme.features.reading_progress && is_post()) { %>
+  <div class="reading-progress" id="readingProgress"></div>
+  <% } %>
+
+  <!-- Navigation -->
+  <%- partial('_partial/header') %>
+
+  <!-- Main Content -->
+  <main class="aurora-main">
+    <%- body %>
+  </main>
+
+  <!-- Footer -->
+  <%- partial('_partial/footer') %>
+
+  <!-- Back to top -->
+  <% if (theme.features.back_to_top) { %>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <% } %>
+
+  <!-- Search Modal -->
+  <% if (theme.features.search) { %>
+  <%- partial('_partial/search') %>
+  <% } %>
+
+  <%- js('js/aurora') %>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<%
+  var catTitle = page.category || 'Explore';
+  var catSub = 'Discover amazing flights';
+  if (page.path.includes('Niche-Flights/Archived')) {
+    catTitle = '小众航班体验 / 已打卡';
+    catSub = '跨越西伯利亚冰原或丛林，记录鲜为人知的实感飞行';
+  } else if (page.path.includes('Niche-Flights/Wishlist')) {
+    catTitle = '梦想航线 / 计划中';
+    catSub = '收集情报、整理航权，宝藏体验预定中...';
+  } else if (page.path.includes('Spotting/Archived')) {
+    catTitle = '机位打卡 / 实战记录';
+    catSub = '无遮挡绝赞视角大放送！出片点与实战参数集合';
+  } else if (page.path.includes('Spotting/Wishlist')) {
+    catTitle = '航空机位深度发掘';
+    catSub = '收集测算光线与星地运行轨迹，寻找下个绝佳航拍机位';
+  } else if (page.path.includes('Niche-Flights')) {
+    catTitle = '小众航班体验';
+    catSub = '记录那些鲜为人知的飞行体验';
+  } else if (page.path.includes('Spotting')) {
+    catTitle = '航空摄影机位探寻';
+    catSub = '寻找最佳航空摄影机位';
+  }
+%>
+
+<section class="category-page aurora-reveal">
+  <div class="page-hero">
+    <h1 class="page-hero-title"><%= catTitle %></h1>
+    <p class="page-hero-sub"><%= catSub %> &middot; <%= page.posts.length %> articles</p>
+  </div>
+
+  <div class="posts-grid">
+    <% page.posts.sort('date', -1).each(function(post) { %>
+      <article class="post-card aurora-reveal">
+        <div class="post-card-inner">
+          <div class="post-card-meta">
+            <time><%= date(post.date, 'MMM D, YYYY') %></time>
+            <% if (post.categories && post.categories.length) { %>
+              <span class="post-card-cat">
+                <%= post.categories.toArray().map(function(c) { return c.name; }).join(' / ') %>
+              </span>
+            <% } %>
+          </div>
+          <h3 class="post-card-title">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </h3>
+          <p class="post-card-excerpt">
+            <% if (post.description) { %>
+              <%- post.description %>
+            <% } else { %>
+              <%- strip_html(post.excerpt || post.content).substring(0, 100) + '...' %>
+            <% } %>
+          </p>
+        </div>
+      </article>
+    <% }); %>
+  </div>
+
+  <% if (page.total > 1) { %>
+    <nav class="aurora-pagination">
+      <%- paginator({
+        prev_text: '← Prev',
+        next_text: 'Next →'
+      }) %>
+    </nav>
+  <% } %>
+</section>

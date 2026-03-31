@@ -1,0 +1,83 @@
+<%
+  // Generate TOC
+  var tocContent = '';
+  if (theme.features.toc && page.content) {
+    tocContent = toc(page.content, {list_number: false});
+  }
+%>
+
+<article class="post-detail aurora-reveal">
+  <!-- Post Header -->
+  <header class="post-header">
+    <div class="post-meta-top">
+      <% if (page.categories && page.categories.length) { %>
+        <% page.categories.toArray().forEach(function(cat) { %>
+          <a href="<%- url_for(cat.path) %>" class="post-category-badge"><%= cat.name %></a>
+        <% }); %>
+      <% } %>
+    </div>
+    <h1 class="post-title"><%= page.title %></h1>
+    <div class="post-meta">
+      <time class="post-date">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <%= date(page.date, 'MMMM D, YYYY') %>
+      </time>
+      <% if (page.updated && page.updated > page.date) { %>
+        <span class="post-updated">
+          Updated: <%= date(page.updated, 'MMM D, YYYY') %>
+        </span>
+      <% } %>
+      <span class="post-wordcount">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <%= wordcount(page.content) %> words
+      </span>
+    </div>
+    <% if (page.description) { %>
+      <p class="post-description"><%= page.description %></p>
+    <% } %>
+  </header>
+
+  <div class="post-body-wrap">
+    <!-- TOC Sidebar -->
+    <% if (tocContent) { %>
+    <aside class="toc-sidebar" id="tocSidebar">
+      <div class="toc-header">Table of Contents</div>
+      <div class="toc-content"><%- tocContent %></div>
+    </aside>
+    <% } %>
+
+    <!-- Post Content -->
+    <div class="post-content" id="postContent">
+      <%- page.content %>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <% if (page.tags && page.tags.length) { %>
+  <div class="post-tags">
+    <% page.tags.toArray().forEach(function(tag) { %>
+      <a href="<%- url_for(tag.path) %>" class="tag-pill">#<%= tag.name %></a>
+    <% }); %>
+  </div>
+  <% } %>
+
+  <!-- Post Navigation -->
+  <% if (theme.features.post_nav) { %>
+  <nav class="post-nav">
+    <% if (page.prev) { %>
+    <a href="<%- url_for(page.prev.path) %>" class="post-nav-item post-nav-prev">
+      <span class="post-nav-label">← Previous</span>
+      <span class="post-nav-title"><%= page.prev.title %></span>
+    </a>
+    <% } else { %>
+    <span class="post-nav-item post-nav-empty"></span>
+    <% } %>
+    <% if (page.next) { %>
+    <a href="<%- url_for(page.next.path) %>" class="post-nav-item post-nav-next">
+      <span class="post-nav-label">Next →</span>
+      <span class="post-nav-title"><%= page.next.title %></span>
+    </a>
+    <% } %>
+  </nav>
+  <% } %>
+</article>

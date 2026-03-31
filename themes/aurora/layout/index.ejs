@@ -1,0 +1,106 @@
+<%
+  var bentoCards = theme.bento || [];
+%>
+
+<!-- Hero Section -->
+<section class="aurora-hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-content">
+    <h1 class="hero-title aurora-reveal"><%= theme.hero.title %></h1>
+    <p class="hero-subtitle aurora-reveal"><%= theme.hero.subtitle %></p>
+  </div>
+</section>
+
+<!-- Bento Grid -->
+<section class="bento-container aurora-reveal">
+  <!-- Title card -->
+  <div class="bento-card bento-title-card">
+    <div class="card-glow"></div>
+    <h2 class="bento-main-title"><%= theme.hero.title %></h2>
+    <p class="bento-main-sub"><%= theme.hero.subtitle %></p>
+  </div>
+
+  <!-- Author card -->
+  <a href="<%= theme.author.github %>" target="_blank" rel="noopener" class="bento-card bento-author-card">
+    <div class="card-glow"></div>
+    <div class="bento-avatar"><%= theme.author.avatar_emoji %></div>
+    <h3 class="bento-author-name"><%= theme.author.name %></h3>
+    <p class="bento-author-handle">@MessiXiang</p>
+  </a>
+
+  <!-- Dynamic bento cards from config -->
+  <% bentoCards.forEach(function(card, idx) { %>
+    <a href="<%- url_for(card.link) %>" class="bento-card bento-<%= card.size %>-card">
+      <div class="card-glow"></div>
+      <div class="bento-watermark-num"><%= String(idx + 1).padStart(2, '0') %></div>
+      <div class="bento-card-label">
+        <span class="status-indicator <%= card.status %>"></span>
+        <span class="label-text"><%= card.label %></span>
+      </div>
+      <div class="bento-card-content">
+        <% if (card.icon) { %><div class="bento-card-icon"><%= card.icon %></div><% } %>
+        <h2><%= card.title %></h2>
+        <p><%= card.subtitle %></p>
+      </div>
+    </a>
+  <% }); %>
+</section>
+
+<!-- Recent Posts -->
+<section class="recent-posts">
+  <div class="section-header aurora-reveal">
+    <h2 class="section-title">Recent Flights</h2>
+    <a href="<%- url_for('/archives') %>" class="section-link">View all →</a>
+  </div>
+
+  <div class="posts-grid">
+    <% var count = 0; %>
+    <% page.posts.each(function(post) { %>
+      <% if (count >= 6) return; %>
+      <article class="post-card aurora-reveal">
+        <div class="post-card-inner">
+          <div class="post-card-meta">
+            <time><%= date(post.date, 'MMM D, YYYY') %></time>
+            <% if (post.categories && post.categories.length) { %>
+              <span class="post-card-cat"><%= post.categories.toArray()[0].name %></span>
+            <% } %>
+          </div>
+          <h3 class="post-card-title">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </h3>
+          <p class="post-card-excerpt">
+            <% if (post.description) { %>
+              <%- post.description %>
+            <% } else { %>
+              <%- strip_html(post.excerpt || post.content).substring(0, 120) + '...' %>
+            <% } %>
+          </p>
+          <div class="post-card-tags">
+            <% if (post.tags && post.tags.length) { %>
+              <% post.tags.toArray().slice(0, 3).forEach(function(tag) { %>
+                <span class="tag-pill">#<%= tag.name %></span>
+              <% }); %>
+            <% } %>
+          </div>
+        </div>
+      </article>
+      <% count++; %>
+    <% }); %>
+  </div>
+</section>
+
+<script>
+// Randomize bento cards on desktop (keep title card first)
+document.addEventListener("DOMContentLoaded", function() {
+  if (window.innerWidth > 768) {
+    var container = document.querySelector('.bento-container');
+    if (!container) return;
+    var cards = Array.from(container.children);
+    var titleCard = cards.find(function(c) { return c.classList.contains('bento-title-card'); });
+    var rest = cards.filter(function(c) { return !c.classList.contains('bento-title-card'); });
+    rest.sort(function() { return Math.random() - 0.5; });
+    if (titleCard) titleCard.style.order = 0;
+    rest.forEach(function(card, i) { card.style.order = i + 1; });
+  }
+});
+</script>

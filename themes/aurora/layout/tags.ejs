@@ -1,0 +1,21 @@
+<section class="tags-page aurora-reveal">
+  <div class="page-hero">
+    <h1 class="page-hero-title">Tags</h1>
+    <p class="page-hero-sub">Browse by topic</p>
+  </div>
+
+  <% if (site.tags.length) { %>
+  <div class="tag-cloud aurora-reveal">
+    <% site.tags.sort('name').each(function(tag) { %>
+      <a href="<%- url_for(tag.path) %>" class="tag-cloud-item" data-count="<%= tag.posts.length %>">
+        <span class="tag-name">#<%= tag.name %></span>
+        <span class="tag-count"><%= tag.posts.length %></span>
+      </a>
+    <% }); %>
+  </div>
+  <% } else { %>
+    <div class="empty-state aurora-reveal">
+      <p>No tags yet.</p>
+    </div>
+  <% } %>
+</section>

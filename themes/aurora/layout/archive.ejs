@@ -1,0 +1,45 @@
+<section class="archive-page aurora-reveal">
+  <div class="page-hero">
+    <h1 class="page-hero-title">Archives</h1>
+    <p class="page-hero-sub">All flight logs, chronologically ordered</p>
+  </div>
+
+  <div class="archive-timeline">
+    <% var lastYear = ''; %>
+    <% page.posts.each(function(post) { %>
+      <% var currentYear = date(post.date, 'YYYY'); %>
+      <% if (lastYear !== currentYear) { %>
+        <div class="archive-year-marker aurora-reveal">
+          <span class="year-badge"><%= currentYear %></span>
+        </div>
+        <% lastYear = currentYear; %>
+      <% } %>
+      <article class="archive-item aurora-reveal">
+        <div class="archive-item-date">
+          <span class="month"><%= date(post.date, 'MMM') %></span>
+          <span class="day"><%= date(post.date, 'DD') %></span>
+        </div>
+        <div class="archive-item-body">
+          <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+          <div class="archive-item-meta">
+            <% if (post.categories && post.categories.length) { %>
+              <% post.categories.toArray().forEach(function(cat) { %>
+                <span class="archive-cat"><%= cat.name %></span>
+              <% }); %>
+            <% } %>
+          </div>
+        </div>
+      </article>
+    <% }); %>
+  </div>
+
+  <% if (page.total > 1) { %>
+    <nav class="aurora-pagination">
+      <%- paginator({
+        prev_text: '← Prev',
+        next_text: 'Next →',
+        mid_size: 2
+      }) %>
+    </nav>
+  <% } %>
+</section>

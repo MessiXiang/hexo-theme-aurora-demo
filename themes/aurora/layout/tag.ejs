@@ -1,0 +1,46 @@
+<section class="tag-page aurora-reveal">
+  <div class="page-hero">
+    <h1 class="page-hero-title">Tags</h1>
+    <p class="page-hero-sub">Browse by topic</p>
+  </div>
+
+  <% if (site.tags.length) { %>
+  <div class="tag-cloud aurora-reveal">
+    <% site.tags.sort('name').each(function(tag) { %>
+      <a href="<%- url_for(tag.path) %>" class="tag-cloud-item" data-count="<%= tag.posts.length %>">
+        <span class="tag-name">#<%= tag.name %></span>
+        <span class="tag-count"><%= tag.posts.length %></span>
+      </a>
+    <% }); %>
+  </div>
+  <% } %>
+
+  <% if (page.tag) { %>
+    <div class="page-hero" style="padding-top:20px;">
+      <h2 class="page-hero-title" style="font-size:2rem;">#<%= page.tag %></h2>
+      <p class="page-hero-sub"><%= page.posts.length %> articles</p>
+    </div>
+
+    <div class="posts-grid">
+      <% page.posts.each(function(post) { %>
+        <article class="post-card aurora-reveal">
+          <div class="post-card-inner">
+            <div class="post-card-meta">
+              <time><%= date(post.date, 'MMM D, YYYY') %></time>
+            </div>
+            <h3 class="post-card-title">
+              <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+            </h3>
+            <p class="post-card-excerpt">
+              <% if (post.description) { %>
+                <%- post.description %>
+              <% } else { %>
+                <%- strip_html(post.excerpt || post.content).substring(0, 100) + '...' %>
+              <% } %>
+            </p>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  <% } %>
+</section>

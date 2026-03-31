@@ -1,0 +1,71 @@
+# Aurora Theme Configuration
+# A premium aviation-themed Hexo theme
+
+# Navigation Menu
+menu:
+  Home: /
+  Archives: /archives
+  Categories: /categories
+  Tags: /tags
+  Search: /search
+
+# Site branding
+logo_text: "FLIGHT LOG"
+logo_icon: "plane"
+subtitle: "探索无垠天空"
+
+# Author info
+author:
+  name: Messerschmitt.X
+  avatar_emoji: "🧑‍🚀"
+  bio: "Aviation enthusiast & niche flight hunter"
+  github: https://github.com/MessiXiang
+
+# Hero Section (homepage)
+hero:
+  title: "探索无垠天空"
+  subtitle: "发现飞行之美，记录冲上云霄的每一个机位与机型体验。"
+
+# Bento Grid Cards
+bento:
+  - title: "Niche Flights"
+    subtitle: "跨越西伯利亚的安-24冰原起降，飞行日记。"
+    link: /categories/Niche-Flights/Archived/
+    status: done
+    label: "FLIGHT LOG / ARCHIVED"
+    size: large
+    icon: "🛫"
+  - title: "Wishlist"
+    subtitle: "收集情报、整理航权，宝藏体验预定中..."
+    link: /categories/Niche-Flights/Wishlist/
+    status: plan
+    label: "WISH LIST"
+    size: square
+  - title: "Aviation Spotting"
+    subtitle: "全球跑道端旁的出片点、器材焦段推介与实战参数。"
+    link: /categories/Spotting/Archived/
+    status: done
+    label: "SPOTTING"
+    size: tall
+  - title: "Spotting Radar"
+    subtitle: "利用卫星图测算光线与星地运行轨迹。"
+    link: /categories/Spotting/Wishlist/
+    status: plan
+    label: "RADAR"
+    size: wide
+
+# Features
+features:
+  dark_mode: true
+  back_to_top: true
+  toc: true
+  search: true
+  reading_progress: true
+  post_nav: true
+  code_copy: true
+
+# Footer
+footer:
+  since: 2026
+  powered: true
+  custom_text: "Ad Astra Per Aspera"

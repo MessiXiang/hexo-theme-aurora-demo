@@ -1,0 +1,56 @@
+<section class="categories-page aurora-reveal">
+  <div class="page-hero">
+    <h1 class="page-hero-title">Categories</h1>
+    <p class="page-hero-sub">Browse all categories</p>
+  </div>
+
+  <% if (site.categories.length) { %>
+  <div class="categories-grid">
+    <%
+      // Build a tree: top-level categories and their children
+      var catMap = {};
+      site.categories.each(function(cat) {
+        var parentCat = cat.parent;
+        if (!parentCat) {
+          if (!catMap[cat.name]) catMap[cat.name] = { cat: cat, children: [] };
+          else catMap[cat.name].cat = cat;
+        }
+      });
+      site.categories.each(function(cat) {
+        if (cat.parent) {
+          // find parent name
+          site.categories.each(function(p) {
+            if (p._id === cat.parent) {
+              if (!catMap[p.name]) catMap[p.name] = { cat: p, children: [] };
+              catMap[p.name].children.push(cat);
+            }
+          });
+        }
+      });
+    %>
+    <% for (var name in catMap) { %>
+      <% var item = catMap[name]; %>
+      <div class="category-group aurora-reveal">
+        <a href="<%- url_for(item.cat.path) %>" class="category-group-header">
+          <h2><%= item.cat.name %></h2>
+          <span class="category-count"><%= item.cat.posts.length %> articles</span>
+        </a>
+        <% if (item.children.length) { %>
+          <div class="category-children">
+            <% item.children.forEach(function(child) { %>
+              <a href="<%- url_for(child.path) %>" class="category-child-item">
+                <span class="child-name"><%= child.name %></span>
+                <span class="child-count"><%= child.posts.length %></span>
+              </a>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+  <% } else { %>
+    <div class="empty-state aurora-reveal">
+      <p>No categories yet.</p>
+    </div>
+  <% } %>
+</section>
