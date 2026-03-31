@@ -470,6 +470,11 @@ img {
   box-shadow: 0 0 10px rgba(255, 159, 10, 0.5);
 }
 
+.status-indicator.new {
+  background: #007aff;
+  box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+}
+
 .label-text {
   font-size: 0.7rem;
   font-weight: 700;
@@ -575,15 +580,10 @@ img {
   margin-top: 2px;
 }
 
-/* Size variations */
+/* Size variations (grid span only) */
 .bento-large-card {
   grid-column: span 2;
   grid-row: span 2;
-  background: var(--bg-card);
-}
-
-.bento-large-card .card-glow {
-  background: radial-gradient(ellipse at 30% 80%, rgba(37,99,235,0.08) 0%, transparent 60%);
 }
 
 .bento-large-card .bento-card-content h2 {
@@ -593,53 +593,143 @@ img {
 .bento-square-card {
   grid-column: span 1;
   grid-row: span 1;
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  border: none;
-}
-
-.bento-square-card .bento-card-content h2,
-.bento-square-card .bento-card-content p,
-.bento-square-card .label-text {
-  color: white;
-}
-
-.bento-square-card .bento-card-content p {
-  opacity: 0.9;
 }
 
 .bento-tall-card {
   grid-column: span 1;
   grid-row: span 2;
-  background: var(--bg-card);
-}
-
-.bento-tall-card .card-glow {
-  background: radial-gradient(ellipse at 50% 80%, rgba(6,182,212,0.08) 0%, transparent 60%);
 }
 
 .bento-wide-card {
   grid-column: span 2;
   grid-row: span 1;
+}
+
+.bento-mini-card {
+  grid-column: span 1;
+  grid-row: span 1;
+  padding: 16px;
+}
+
+.bento-mini-card .bento-card-content h2 {
+  font-size: 1.1rem;
+}
+
+.bento-mini-card .bento-card-content p {
+  font-size: 0.82rem;
+}
+
+.bento-mini-card .bento-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.bento-mini-card .bento-watermark-num {
+  font-size: 5rem;
+}
+
+/* ============================================================
+   BENTO STYLE CLASSES (visual appearance)
+   ============================================================ */
+
+/* Glass (default) — themed glassmorphism */
+.bento-style-glass {
+  background: var(--bg-card);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--border-color);
+}
+
+.bento-style-glass .card-glow {
+  background: radial-gradient(ellipse at 30% 80%, rgba(37,99,235,0.08) 0%, transparent 60%);
+}
+
+/* Gradient Pink */
+.bento-style-gradient-pink {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  border: none;
+}
+
+.bento-style-gradient-pink .bento-card-content h2,
+.bento-style-gradient-pink .bento-card-content p,
+.bento-style-gradient-pink .label-text {
+  color: white;
+}
+
+.bento-style-gradient-pink .bento-card-content p {
+  opacity: 0.9;
+}
+
+/* Gradient Blue */
+.bento-style-gradient-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.bento-style-gradient-blue .bento-card-content h2,
+.bento-style-gradient-blue .bento-card-content p,
+.bento-style-gradient-blue .label-text {
+  color: white;
+}
+
+.bento-style-gradient-blue .bento-card-content p {
+  opacity: 0.9;
+}
+
+/* Gradient Purple */
+.bento-style-gradient-purple {
   background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
   border: none;
 }
 
-.bento-wide-card .bento-card-content h2,
-.bento-wide-card .bento-card-content p,
-.bento-wide-card .label-text {
+.bento-style-gradient-purple .bento-card-content h2,
+.bento-style-gradient-purple .bento-card-content p,
+.bento-style-gradient-purple .label-text {
   color: white;
 }
 
-.bento-wide-card .bento-card-content p {
+.bento-style-gradient-purple .bento-card-content p {
   opacity: 0.9;
 }
 
-/* Dark mode card overrides */
-[data-theme="dark"] .bento-square-card {
+/* Gradient Dark */
+.bento-style-gradient-dark {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.bento-style-gradient-dark .bento-card-content h2,
+.bento-style-gradient-dark .bento-card-content p,
+.bento-style-gradient-dark .label-text {
+  color: white;
+}
+
+.bento-style-gradient-dark .bento-card-content p {
+  opacity: 0.7;
+}
+
+.bento-style-gradient-dark .card-glow {
+  background: radial-gradient(ellipse at 50% 80%, rgba(99,102,241,0.1) 0%, transparent 60%);
+}
+
+/* Solid */
+.bento-style-solid {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Dark mode style overrides */
+[data-theme="dark"] .bento-style-gradient-pink {
   background: linear-gradient(135deg, #be185d 0%, #b45309 100%);
 }
 
-[data-theme="dark"] .bento-wide-card {
+[data-theme="dark"] .bento-style-gradient-blue {
+  background: linear-gradient(135deg, #4338ca 0%, #6b21a8 100%);
+}
+
+[data-theme="dark"] .bento-style-gradient-purple {
   background: linear-gradient(120deg, #6b21a8 0%, #1e40af 100%);
 }
 
@@ -1988,6 +2078,11 @@ figure.highlight .line {
 
   .bento-author-handle {
     display: none;
+  }
+
+  .bento-mini-card {
+    min-height: 80px;
+    padding: 14px;
   }
 
   /* Posts grid */
