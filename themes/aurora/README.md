@@ -4,7 +4,7 @@ A premium aviation-themed Hexo blog theme with modern design, inspired by Apple'
 
 ## Preview
 
-**Live Demo**: [https://messixiang.github.io/hexo-theme-aurora-demo/](https://messixiang.github.io/hexo-theme-aurora-demo/)
+**Live Demo**: [https://buaa.spotterblog.cn/hexo-theme-aurora-demo/](https://buaa.spotterblog.cn/hexo-theme-aurora-demo/)
 
 ## Features
 
